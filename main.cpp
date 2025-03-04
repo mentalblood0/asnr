@@ -8,7 +8,9 @@ asnr::Bytes read_file(const std::string &path) {
     auto file = std::ifstream(path, std::ios::binary);
     if (!file)
         throw std::runtime_error("Can not open file " + path);
-    return asnr::Bytes(std::istreambuf_iterator<char>(file), {});
+    const auto result = asnr::Bytes(std::istreambuf_iterator<char>(file), {});
+    file.close();
+    return result;
 }
 
 int main(int argc, char *argv[]) {
